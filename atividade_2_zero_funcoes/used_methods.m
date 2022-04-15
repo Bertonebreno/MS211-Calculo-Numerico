@@ -32,14 +32,14 @@ function [next_inferior_limit, next_superior_limit] = next_point_bisection(infer
     end
 endfunction
 
-function [current_point, next_point] = next_point_secant(last_point, current_point)
+function [current_point, next_point] = next_point_secant(current_point, next_point)
+    next_point_value = p(next_point)
     current_point_value = p(current_point)
-    last_point_value = p(last_point)
 
-    angular_coef = (current_point_value - last_point_value) / (current_point - last_point)
+    angular_coef = (next_point_value - current_point_value) / (next_point - current_point)
 
-    next_point = current_point - current_point_value/angular_coef
-    current_point = last_point
+    current_point = next_point
+    next_point = next_point - next_point_value/angular_coef 
 end
 
 function next_point = next_point_newton(current_point)
